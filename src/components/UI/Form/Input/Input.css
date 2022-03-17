@@ -1,0 +1,40 @@
+.primary_input{
+    display: flex;
+    flex-direction: column;
+}
+
+.primary_input input{
+    margin-top: .5rem;
+}
+
+.secondary_input{
+    display: flex;
+}
+
+.secondary_input label{
+    height: 30px;
+    vertical-align: middle;
+}
+
+.secondary_input div{
+    margin-left: 1rem;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.custom_input input{
+    border-radius: .2rem;
+    font-size: 1rem;
+    padding: .2rem .4rem;
+}
+
+.custom_input .field_info{
+    font-size: .7rem;
+    color: #777;
+}
+
+.custom_input .field_error{
+    font-size: .7rem;
+    color: #df4e4e;
+}
