@@ -1,0 +1,41 @@
+.outer-div {
+  background-color: #49b265;
+  height: 100vh;
+  text-align: center;
+}
+
+.inner-div {
+  background-color: #ffffff;
+  display: inline-block;
+  padding: 3px;
+  height: 50vh;
+  width: 80vw;
+  border-radius: 10px;
+}
+.img-div {
+    padding: 5em;
+}
+.input-email {
+    margin: 2rem auto;
+    width: 40vw;
+}
+
+.input-pass{
+    margin: 2rem auto;
+    width: 40vw;
+}
+
+::placeholder{
+    text-align: center;
+}
+
+.button-login {
+    margin: 2rem auto;
+    width: 50vw;
+}
+
+.button-signin {
+    margin: 2rem auto;
+    width: 50vw;
+}
+
