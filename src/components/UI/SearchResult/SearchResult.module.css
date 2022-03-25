@@ -1,0 +1,66 @@
+.container{
+    display: flex;
+    box-shadow: 0 2px 4px #000;
+    margin-bottom: 1rem;
+    border-radius: 1rem;
+    padding: 1rem;
+    max-width: 58rem;
+}
+
+.teacherInfo{
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    align-items: center;
+}
+
+.teacherInfo img{
+    object-fit: contain;
+    width: 6.875rem;
+    height: 6.875rem;
+    border-radius: 50%;
+}
+
+.teacherInfo h4{
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.teacherInfo p{
+    font-size: 12px;
+}
+
+.teacherInfo button{
+    margin-top: .7rem;
+    background-color: #55ACEE;
+    font-weight: bold;
+}
+
+.courseInfo{
+    flex: 1;
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+    padding: 0 1.5rem;
+}
+
+.courseInfo div:first-child{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.spaceBetween *{
+    font-size: 2.25rem;
+    font-weight: bold;
+}
+
+.courseInfo div:last-child{
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.btnPrimary{
+    font-weight: bold;
+}
