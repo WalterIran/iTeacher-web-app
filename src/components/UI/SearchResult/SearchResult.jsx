@@ -1,10 +1,31 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import styles from './SearchResult.module.css';
 
 //Components
 import { BaseButton, PrimaryButton } from '../Form/Button/Button';
+import axios from '../../../api/axios';
+
 
 const SearchResult = () => {
+
+    useEffect(() => {
+      try {
+          const testFetchData = async () => {
+              const res = await axios.get('/courses/search',
+                {
+                    params: {
+                        value: 'Walter'
+                    }
+                }
+              );
+              console.log(res);
+          }
+          testFetchData();
+      } catch (error) {
+          
+      }
+    }, [])
+
   return (
     <div className={styles.container}>
         <div className={styles.teacherInfo}>
