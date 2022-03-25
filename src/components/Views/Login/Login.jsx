@@ -18,10 +18,10 @@ const Login = () => {
         </div>
         <div>Forgot Password</div>
         <div className="button-login">
-          <PrimaryButton>Log In</PrimaryButton>
+          <PrimaryButton style = {{width: '200px'}}>Log In</PrimaryButton>
         </div>
         <div className="button-signin">
-          <PrimaryButton>Sign In</PrimaryButton>
+          <PrimaryButton style = {{width: '200px'}}>Sign In</PrimaryButton>
         </div>
       </div>
     </div>
