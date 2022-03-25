@@ -1,5 +1,5 @@
-import { BaseButton, PrimaryButton, SecondaryButton } from '../../../UI/Form/Button/Button';
-import { PrimaryInput, SecondaryInput } from '../../../UI/Form/Input/Input';
+import { PrimaryButton } from '../../../UI/Form/Button/Button';
+import { PrimaryInput } from '../../../UI/Form/Input/Input';
 import { Icon } from '@iconify/react';
 import './Student.registration.css'
 

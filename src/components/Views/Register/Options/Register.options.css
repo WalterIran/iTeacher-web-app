@@ -2,8 +2,9 @@
     display: flex;
     justify-content: center;
     width: 100%;
-    height: calc(100vh - 6rem);
+    height: calc(100vh - 4rem);
     background-color: #49B265;
+    margin: -1rem -2rem -1rem 0rem;
 }
 
 .box {
