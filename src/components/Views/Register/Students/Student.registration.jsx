@@ -16,19 +16,19 @@ const StudentRegister = () => {
                             <PrimaryInput type="text" placeholder="Nombre(s)" />
                         </div>
                         <div className="input-field">
-                            <i className="fas fa-lock"></i>
+                            <Icon className="fas fa-lock"></Icon>
                             <PrimaryInput type="text" placeholder="Apellido(s)" />
                         </div>
                         <div className="input-field">
-                            <i className="fas fa-lock"></i>
+                            <Icon className="fas fa-lock"></Icon>
                             <PrimaryInput type="text" placeholder="E-mail" />
                         </div>
                         <div className="input-field">
-                            <i className="fas fa-lock"></i>
+                            <Icon className="fas fa-lock"></Icon>
                             <PrimaryInput type="password" placeholder="Password" />
                         </div>
                         <div className="input-field">
-                            <i className="fas fa-lock"></i>
+                            <Icon className="fas fa-lock"></Icon>
                             <PrimaryInput type="password" placeholder="Confirm password" />
                         </div>
                         <PrimaryButton className="btn solid" >
