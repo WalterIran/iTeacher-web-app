@@ -7,8 +7,9 @@ import TeacherPage from './components/Views/Teacher/TeacherPage';
 function App() {
   return (
       <Routes>
-        <Route path='/' element={<TeacherPage />} />
+        <Route path='/' element={<SamplePage />} />
         <Route path='/login' element={<Login />} />
+        <Route path='/teacher-registration' element={<TeacherPage />} />
       </Routes>
   );
 }
