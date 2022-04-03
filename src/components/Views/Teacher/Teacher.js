@@ -40,6 +40,9 @@ const Teacher = () => {
         })
     }
 
+    const handleServiceAdd = ()=>{
+        initial.institutions=[...PrimaryInput]
+    }
     const validation = Yup.object({
         firstname: Yup.string()
             .min(3,"Minimum 3 characters")
@@ -65,8 +68,9 @@ const Teacher = () => {
             .max(20, "Expertise field must be less than 20 characters"),
         description: Yup.string()
             .max(40, "40 characters max is permitted"),
-        
-        plataform: Yup.string()
+        institutions: Yup.array()
+            .max(20, "Plataform must be less than 20 characters"),
+        plataforms: Yup.array()
             .max(20, "Plataform must be less than 20 characters"),
         image: Yup.mixed()  
         
@@ -81,8 +85,8 @@ const Teacher = () => {
         title:'',
         expertise:'',
         description:'',
-        institutions:['',''],
-        plataform:'',
+        institutions:[''],
+        plataforms:[''],
         image: ''
     }
 
@@ -244,75 +248,84 @@ const Teacher = () => {
                     onChange = {formik.handleChange}
                 />
             </div>
-
+            
+            
             <div className='box_institution'>
-                <div className='institutions'>
-              
-                    <div className='inst'>
-                    {initial.institutions.map((inst,index) => (
-                    
-                        <PrimaryInput
-                                key={index}
-                                label="Institutions"
-                                type="text"
-                                info=""
-                                error={formik.errors.institutions}
-                                name = {`institutions[${index}]`}
-                                value = {formik.values.institutions[index]}
-                                onChange = {formik.handleChange}
-                                style={styleInput}
-                            />
-                    ))}
+                <div className='instituion_holder'>
+                <label>Institutions</label>
+                    {initial.institutions.map((inst,index)=>(
+                        <div key={index} className='institutions'>
                         
-
-                        <div>
-                            <BaseButton type="button" style={{backgroundColor: "blue", fontWeight: 'bold'}}>
-                                <Icon icon="carbon:add-filled" />
-                                ADD
-                            </BaseButton>
-
-                            <BaseButton type="button" style={{backgroundColor: "gray", fontWeight: 'bold'}}>
-                                <Icon icon="fa6-solid:trash-can" />
-                                    DEL
-                            </BaseButton>
+                        <div className='instInput'>
+                            <PrimaryInput             
+                                    type="text"
+                                    info=""
+                                    error={formik.errors.institutions}
+                                    name = {`institutions[${index}]`}
+                                    value =  {formik.values.institutions[index]}
+                                    onChange = {formik.handleChange}
+                                    style={styleInput}
+                                />
                         </div>
-                    </div>
 
-                    
-
-                    
+                        <div className='instButton'>
+                            <BaseButton 
+                                type="button" 
+                                style={{backgroundColor: "blue", fontWeight: 'bold'}}
+                                >
+                                    <Icon icon="carbon:add-filled" />
+                                    ADD
+                                </BaseButton>
             
+                                <BaseButton type="button" style={{backgroundColor: "gray", fontWeight: 'bold'}}>
+                                    <Icon icon="fa6-solid:trash-can" />
+                                        DEL
+                                </BaseButton>
+                        </div>
+                        </div>
+                        
+                    ))}
                 </div>
 
-                <div className='plataforms'>
+                <div className='platform_holder'>
+                <label>Plataforms</label>
+                    {initial.institutions.map((palt,index2)=>(
+                        <div key={index2} className='plataforms'>
+                        
+                            <div className='platInput'>
+                                <PrimaryInput             
+                                        type="text"
+                                        info=""
+                                        error={formik.errors.plataforms}
+                                        name = {`plataforms[${index2}]`}
+                                        value =  {formik.values.plataforms[index2]}
+                                        onChange = {formik.handleChange}
+                                        style={styleInput}
+                                    />
+                            </div>
 
-                    <div className='plats'>
-                    <PrimaryInput
-                        label="Plataforms"
-                        type="text"
-                        info=""
-                        error={formik.errors.plataform}
-                        name = "plataform"
-                        value = {formik.values.plataform}
-                        onChange = {formik.handleChange}
-                        style={styleInput}
-                    />
-                    <div>
-                        <BaseButton style={{backgroundColor: "blue", fontWeight: 'bold'}}>
-                            <Icon icon="carbon:add-filled" />
-                                ADD
-                        </BaseButton>
+                            <div className='platButton'>
+                                <BaseButton 
+                                    type="button" 
+                                    style={{backgroundColor: "blue", fontWeight: 'bold'}}
+                                    >
+                                        <Icon icon="carbon:add-filled" />
+                                        ADD
+                                </BaseButton>
+                
+                                <BaseButton type="button" style={{backgroundColor: "gray", fontWeight: 'bold'}}>
+                                        <Icon icon="fa6-solid:trash-can" />
+                                            DEL
+                                </BaseButton>
+                            </div>
 
-                        <BaseButton style={{backgroundColor: "gray", fontWeight: 'bold'}}>
-                            <Icon icon="fa6-solid:trash-can" />
-                                DEL
-                        </BaseButton>
-                    </div>
-                    </div>
-                    
-            
+                        </div>
+                        
+                    ))}
                 </div>
-
+                
+                
+        
             </div>
 
             <div className='box_buttons'>

@@ -88,26 +88,29 @@
     display: flex;
     flex-direction: row;
     margin:1rem;
-    padding-left:1px ;
     padding: 1rem;
     justify-content: space-between;
 }
 
-.institutions, .plataforms{
+.instituion_holder, .platform_holder{
     display: flex;
     flex-direction: column;
+    margin: 2px;
+}
+.instituion_holder label, .platform_holder label{
+    margin-bottom: 2px;
 }
 
-.inst, .plats{
+
+.institutions, .plataforms{    
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
 }
 
-.institutions div, .plataforms div{
-    padding-left: 1rem;
-    margin:auto
-}
 
+.instButton, .platButton{
+    display: flex;
+}
 
 .box_buttons{
     display: flex;
