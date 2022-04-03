@@ -100,7 +100,7 @@
 
 .inst, .plats{
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
 }
 
 .institutions div, .plataforms div{

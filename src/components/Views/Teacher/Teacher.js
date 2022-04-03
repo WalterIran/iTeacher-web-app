@@ -5,35 +5,39 @@ import { Icon } from '@iconify/react';
 import React, {useRef, useState} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import FileBase64 from 'react-file-base64'
+import {publicAxios} from '../../../Lib/apiClient';
+import axios from 'axios';
 
 
 
 
-const Teacher = ({
-    txtFirstValue,
-    txtLastnameValue,
-    onChange:onChangeHandler,
-    onConfirmClick}) => {
+const Teacher = () => {
     
     const hiddenFileInput = useRef(null);    
     const [fileUrl, setFileUrl] = useState(["https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-High-Quality-Image.png"]);
-    
+    let formData = new FormData();
     
     let imageHandle=(event)=>{
         const imageFile = event.target.files[0];
         const imageUrl = URL.createObjectURL(imageFile);
         setFileUrl(imageUrl);
-        console.log(imageFile);
+        //console.log(imageFile);
+
+        if(event.target && imageFile){
+            formData.append('teacherimage',imageFile);
+        }
     }
 
     const upLoadButton =()=>{
         hiddenFileInput.current.click();
-    }
-
-    const filebase =(value)=>{
-        setFileUrl(value);
-        console.log(value);
+        axios.post(
+            "https://v2.convertapi.com/upload",
+            {formData})
+        .then(res =>{
+            console.log(res);
+        }).catch((err)=>{
+            console.log(err);
+        })
     }
 
     const validation = Yup.object({
@@ -61,8 +65,7 @@ const Teacher = ({
             .max(20, "Expertise field must be less than 20 characters"),
         description: Yup.string()
             .max(40, "40 characters max is permitted"),
-        institutions: Yup.string()
-            .max(20, "Institution must be less than 20 characters"),
+        
         plataform: Yup.string()
             .max(20, "Plataform must be less than 20 characters"),
         image: Yup.mixed()  
@@ -78,7 +81,7 @@ const Teacher = ({
         title:'',
         expertise:'',
         description:'',
-        institutions:'',
+        institutions:['',''],
         plataform:'',
         image: ''
     }
@@ -88,22 +91,43 @@ const Teacher = ({
         validationSchema: validation,
         onSubmit: values => {
           console.log(values);
+          try{
+        
+            const data = publicAxios.post(
+                '/api/v1/auth/teacher-signup',
+                
+                {
+                    name:values.firstname,
+                    surname:values.lastname,
+                    teacherType:values.description,
+                    degreeName:values.title,
+                    aboutDescription:values.description,
+                    institutions:values.institutions,
+                    platforms:values.platform,
+                    email:values.email,
+                    password:values.password,
+                    confirmPassword:values.confirmpass
+
+                });
+        
+            console.log('Signin Request: ',data)
+        }catch(ex){
+            console.log('Error on Signin submit',ex)
+        }
+          
           
         },
       });
-          
-    
-    
+      
     const styleInput={
         width: '30vw',
-        
     }
     return (
     <div className='box'>
         <div className='box_Title'>
             <h2>Teacher Registration</h2>
         </div>
-        <form onSubmit={formik.handleSubmit}>
+        <form >
             <div className="box_name">
                 <div className='teachers_name'>
                     <PrimaryInput
@@ -136,10 +160,7 @@ const Teacher = ({
                     <input type="file" id ="Selectedinput" ref={hiddenFileInput} accept="image/*" onChange={imageHandle}></input>
                     <SecondaryButton cursor="pointer"  onClick ={upLoadButton} type="button"> Add Image</SecondaryButton>
                     
-                    <FileBase64
-                        multiple={ false }
-                        onDone={({base64})=>filebase(base64) }
-                         />
+                    
                 </div>
                 
             </div>
@@ -228,16 +249,21 @@ const Teacher = ({
                 <div className='institutions'>
               
                     <div className='inst'>
+                    {initial.institutions.map((inst,index) => (
+                    
                         <PrimaryInput
-                            label="Institutions"
-                            type="text"
-                            info=""
-                            error={formik.errors.institutions}
-                            name = "institutions"
-                            value = {formik.values.institutions}
-                            onChange = {formik.handleChange}
-                            style={styleInput}
-                        />
+                                key={index}
+                                label="Institutions"
+                                type="text"
+                                info=""
+                                error={formik.errors.institutions}
+                                name = {`institutions[${index}]`}
+                                value = {formik.values.institutions[index]}
+                                onChange = {formik.handleChange}
+                                style={styleInput}
+                            />
+                    ))}
+                        
 
                         <div>
                             <BaseButton type="button" style={{backgroundColor: "blue", fontWeight: 'bold'}}>
@@ -249,7 +275,7 @@ const Teacher = ({
                                 <Icon icon="fa6-solid:trash-can" />
                                     DEL
                             </BaseButton>
-                    </div>
+                        </div>
                     </div>
 
                     
@@ -291,7 +317,7 @@ const Teacher = ({
 
             <div className='box_buttons'>
                 <div className='button'>
-                    <PrimaryButton type="submit" onClick={onConfirmClick}>
+                    <PrimaryButton type="submit" onClick={formik.handleSubmit}>
                         ACCEPT
                     </PrimaryButton>
                 </div>

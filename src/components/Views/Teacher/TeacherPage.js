@@ -10,6 +10,7 @@ const TeacherPage = () => {
   
   const [firstname, setfirstname] = useState('');
   const [txtSurname, setTxtSurname] = useState('');
+ 
 
   const onConfirm = async (e)=>{
     e.preventDefault();
@@ -40,6 +41,10 @@ const TeacherPage = () => {
         case 'txtSurname':
           setTxtSurname(value);
         break;
+
+    
+
+        
         
     }
   }
