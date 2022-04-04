@@ -1,0 +1,114 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    background-color: #fff;
+    border-radius: 1rem;
+    box-shadow: 0 2px 4px #000;
+    overflow: hidden;
+}
+
+.upperContainer{
+    width: 100%;
+}
+
+.coverImgContainer{
+    width: 100%;
+    height: 200px;
+}
+
+.coverImgContainer img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.generalInfoContainer{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem 2rem;
+}
+
+.upperInfoContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    margin-bottom: 1.5rem;
+}
+
+.upperInfoLeft{
+    display: flex;
+}
+
+.upperInfoLeft img{
+    width: 10.5rem;
+    height: 10.5rem;
+    position: absolute;
+    top: -7.25rem;
+    border-radius: 50%;
+    border-width: 4px;
+    border-color: #fff;
+    border-style: solid;
+}
+
+.upperInfoLeft div{
+    margin-left: 11rem;
+}
+
+.upperInfoRight{
+    display: flex;
+    align-items: center;
+}
+
+.infoSection{
+    min-width: 245px;
+}
+.infoSection:not(:first-child){
+    margin-left: 2rem;
+}
+.infoSubTitle{
+    font-weight: bold;
+}
+
+.lowerDescContainer{
+    display: flex;
+    justify-content: space-between;
+}
+
+.lowerContainer{
+    width: 100%;
+    padding: 0 2rem 2rem 2rem;
+}
+
+.coursesGeneralTitle{
+    display: flex;
+    align-items: center;
+}
+
+.search_container{
+    margin-left: 1rem;
+    height: 40px;
+    width: 250px;
+    display: flex;
+    align-items: center;
+    background-color: #fff;
+    border-radius: 50px;
+    padding: 0 .7rem;
+    box-shadow: 0 2px 4px #000;
+}
+
+.search_container input{
+    flex: 1;
+    margin-left: .4rem;
+    outline: none;
+    border: none;
+}
+
+.coursesSection{
+    margin-top: 1.5rem;
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(4, 1fr);
+}
