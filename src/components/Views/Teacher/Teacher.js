@@ -6,7 +6,9 @@ import React, {useRef, useState} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import {publicAxios} from '../../../Lib/apiClient';
+import { privateAxios } from '../../../api/axios';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -15,6 +17,10 @@ const Teacher = () => {
     
     const hiddenFileInput = useRef(null);    
     const [fileUrl, setFileUrl] = useState(["https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-High-Quality-Image.png"]);
+    
+    let navigate = useNavigate(); 
+    
+
     let formData = new FormData();
     
     let imageHandle=(event)=>{
@@ -43,6 +49,7 @@ const Teacher = () => {
     const handleServiceAdd = ()=>{
         initial.institutions=[...PrimaryInput]
     }
+
     const validation = Yup.object({
         firstname: Yup.string()
             .min(3,"Minimum 3 characters")
@@ -95,29 +102,31 @@ const Teacher = () => {
         validationSchema: validation,
         onSubmit: values => {
           console.log(values);
-          try{
+          let path = `/login`; 
+          navigate(path);
+        //   try{
         
-            const data = publicAxios.post(
-                '/api/v1/auth/teacher-signup',
+        //     const data = privateAxios.post(
+        //         '/api/v1/auth/teacher-signup',
                 
-                {
-                    name:values.firstname,
-                    surname:values.lastname,
-                    teacherType:values.description,
-                    degreeName:values.title,
-                    aboutDescription:values.description,
-                    institutions:values.institutions,
-                    platforms:values.platform,
-                    email:values.email,
-                    password:values.password,
-                    confirmPassword:values.confirmpass
+        //         {
+        //             name:values.firstname,
+        //             surname:values.lastname,
+        //             teacherType:values.description,
+        //             degreeName:values.title,
+        //             aboutDescription:values.description,
+        //             institutions:values.institutions,
+        //             platforms:values.platform,
+        //             email:values.email,
+        //             password:values.password,
+        //             confirmPassword:values.confirmpass
 
-                });
+        //         });
         
-            console.log('Signin Request: ',data)
-        }catch(ex){
-            console.log('Error on Signin submit',ex)
-        }
+        //     console.log('Signin Request: ',data)
+        // }catch(ex){
+        //     console.log('Error on Signin submit',ex)
+        // }
           
           
         },
