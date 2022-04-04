@@ -1,12 +1,9 @@
 .box{
-    height: calc(100vh - 10rem);
-    width: 90vw;
+    width: 95vw;
     display: flex;
     /*border: 3px solid red;*/
     flex-direction: column;
 }
-
-
 
 .box_name{
     border: 3px solid black;
@@ -15,6 +12,7 @@
     margin:1rem;
     padding-left:1px ;
     padding: 1rem;
+    width: 100%;
 }
 
 .teachers_name{
@@ -52,6 +50,7 @@
     margin:1rem;
     padding-left:1px ;
     padding: 1rem;
+    width: 100%
 }
 
 .pass{
@@ -68,6 +67,7 @@
     margin:1rem;
     padding-left:1px ;
     padding: 1rem;
+    width: 100%
 }
 .title_expertise{
     display: flex;
@@ -90,6 +90,7 @@
     margin:1rem;
     padding: 1rem;
     justify-content: space-between;
+    width: 100%
 }
 
 .instituion_holder, .platform_holder{
@@ -116,6 +117,7 @@
     display: flex;
     flex-direction: row;
     justify-content: center;
+    width: 100%
 }
 
 .box_buttons div{

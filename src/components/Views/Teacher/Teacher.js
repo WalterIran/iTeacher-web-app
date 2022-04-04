@@ -136,9 +136,11 @@ const Teacher = () => {
         width: '30vw',
     }
     return (
+        
     <div className='box'>
-        <div className='box_Title'>
-            <h2>Teacher Registration</h2>
+        
+        <div className='box_HeadTitle'>
+            <h2>Teacher Registration</h2>    
         </div>
         <form >
             <div className="box_name">
