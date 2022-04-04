@@ -4,10 +4,12 @@ import { PrimaryButton, SecondaryButton } from "../../UI/Form/Button/Button";
 import { PrimaryInput } from "../../UI/Form/Input/Input";
 import AuthContext from "../../../context/AuthProvider";
 import { publicAxios } from "../../../Lib/apiClient";
+import { useNavigate } from "react-router-dom";
 const LOGIN_URL = "/api/v1/auth/login";
 
 const Login = () => {
   const { setAuth } = useContext(AuthContext);
+  let navigate = useNavigate(); 
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -26,7 +28,9 @@ const Login = () => {
       setAuth({ email, password, userType, accessToken });
       setEmail('')
       setPassword('')
-      alert("Inicio de sesion exitoso")
+      //alert("Inicio de sesion exitoso")
+      let path = `/`; 
+      navigate(path);
     } catch (err) {
       console.error(err);
     }
