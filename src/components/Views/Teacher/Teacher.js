@@ -5,9 +5,7 @@ import { Icon } from '@iconify/react';
 import React, {useRef, useState} from 'react';
 import { useFormik } from 'formik';
 import * as Yup from 'yup';
-import {publicAxios} from '../../../Lib/apiClient';
-import { privateAxios } from '../../../api/axios';
-import axios from 'axios';
+import axios from '../../../api/axios';
 import { useNavigate } from "react-router-dom";
 
 
@@ -16,49 +14,43 @@ import { useNavigate } from "react-router-dom";
 const Teacher = () => {
     
     const hiddenFileInput = useRef(null);    
-    const [fileUrl, setFileUrl] = useState(["https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-High-Quality-Image.png"]);
+    const [fileUrl, setFileUrl] = useState("https://www.pngall.com/wp-content/uploads/5/User-Profile-PNG-High-Quality-Image.png");
+    const [image, setImage] = useState(null);
+    const [institutions, setInstitutions] = useState([]);
+    const [institutionsTxt, setInstitutionsTxt] = useState('');
+    const [platforms, setPlatforms] = useState([]);
+    const [platformsTxt, setPlatformsTxt] = useState('');
     
     let navigate = useNavigate(); 
-    
-
-    let formData = new FormData();
     
     let imageHandle=(event)=>{
         const imageFile = event.target.files[0];
         const imageUrl = URL.createObjectURL(imageFile);
         setFileUrl(imageUrl);
-        //console.log(imageFile);
-
-        if(event.target && imageFile){
-            formData.append('teacherimage',imageFile);
-        }
+        setImage(imageFile);
     }
 
-    const upLoadButton =()=>{
-        hiddenFileInput.current.click();
-        axios.post(
-            "https://v2.convertapi.com/upload",
-            {formData})
-        .then(res =>{
-            console.log(res);
-        }).catch((err)=>{
-            console.log(err);
-        })
+    const addToArr = (setArr, setTxt, txt) => {
+        setArr(prev => [...prev, txt]);
+        setTxt('');
     }
 
-    const handleServiceAdd = ()=>{
-        initial.institutions=[...PrimaryInput]
+    const deleteFromArr = (arr, setArr, deleteItem) => {
+        const tmp = arr.filter((value) => {
+            return value !== deleteItem
+        });
+        setArr(tmp);
     }
 
     const validation = Yup.object({
-        firstname: Yup.string()
+        name: Yup.string()
             .min(3,"Minimum 3 characters")
             .max(15, 'Must be 15 characters or less')
             .required("Name Requiered"),
-        lastname: Yup.string()
+        surname: Yup.string()
             .min(3,"Minimum 3 characters")
             .max(15, 'Must be 15 characters or less')
-            .required("Lastname Requiered"),
+            .required("surname Requiered"),
         email: Yup.string()
             .email("Invalid Email")
             .required("Email Requiered"),
@@ -67,68 +59,63 @@ const Teacher = () => {
             .matches(/^((?=\S*?[A-Z])(?=\S*?[a-z])(?=\S*?[0-9]).{8,})\S$/,
                 "Must Contain 8 characters, 1 uppercase, 1 lowercase, 1 number")
             .required("Password Requiered"),
-        confirmpass: Yup.string()
+        confirmPassword: Yup.string()
             .oneOf([Yup.ref('password'),null],"Passwords must match"),
-        title: Yup.string()
-            .max(20, "Title must be less than 20 characters"),
-        expertise: Yup.string()
-            .max(20, "Expertise field must be less than 20 characters"),
-        description: Yup.string()
-            .max(40, "40 characters max is permitted"),
-        institutions: Yup.array()
-            .max(20, "Plataform must be less than 20 characters"),
-        plataforms: Yup.array()
-            .max(20, "Plataform must be less than 20 characters"),
-        image: Yup.mixed()  
-        
+        degreeName: Yup.string()
+            .max(20, "degreeName must be less than 20 characters"),
+        teacherType: Yup.string()
+            .max(20, "teacherType field must be less than 20 characters"),
+        aboutDescription: Yup.string()
+            .max(40, "40 characters max is permitted")
       });
     
       const initial ={
-        firstname: '',
-        lastname:'',
+        name: '',
+        surname:'',
         email:'',
         password: '',
-        confirmpass: '',
-        title:'',
-        expertise:'',
-        description:'',
-        institutions:['',''],
-        plataforms:[''],
-        image: ''
+        confirmPassword: '',
+        degreeName:'',
+        teacherType:'',
+        aboutDescription:''
     }
 
     const formik = useFormik({
         initialValues: initial,
         validationSchema: validation,
-        onSubmit: values => {
-          console.log(values);
-        //   let path = `/login`; 
-        //   navigate(path);
+        onSubmit: async (formValues) => {
           try{
-        
-            const data = publicAxios.post(
-                '/api/v1/auth/teacher-signup',
-                
-                {
-                    name:values.firstname,
-                    surname:values.lastname,
-                    teacherType:values.description,
-                    degreeName:values.title,
-                    aboutDescription:values.description,
-                    institutions:values.institutions,
-                    platforms:values.platform,
-                    email:values.email,
-                    password:values.password,
-                    confirmPassword:values.confirmpass
+            const formData = new FormData();
 
-                });
+            const keys = Object.keys(formValues).filter(key => formValues[key] !== '');
+                
+            keys.forEach(key => {
+                formData.append(key, formValues[key].toString());
+            });
+
+            formData.append('platforms', JSON.stringify(platforms));
+            formData.append('institutions', JSON.stringify(institutions));
+
+            formData.append('profileImg',image);
         
-            console.log('Signin Request: ',data)
+            const data = await axios.post(
+                '/auth/teacher-signup',
+                formData,
+                {
+                    headers: {
+                        Accept: 'aplication/json',
+                        'Content-Type': 'multipart/form-data'
+                    },
+                    transformRequest: (data, headers) => {
+                        return formData;
+                    }
+                }
+            );
+        
+            navigate('/login');
         }catch(ex){
             console.log('Error on Signin submit',ex)
         }
-          
-          
         },
       });
       
@@ -137,47 +124,41 @@ const Teacher = () => {
     }
     return (
     <div className='box'>
-        <div className='box_Title'>
+        <div className='box_degreeName'>
             <h2>Teacher Registration</h2>
         </div>
-        <form >
+        <form className="teacher_registration_form">
             <div className="box_name">
                 <div className='teachers_name'>
                     <PrimaryInput
                         label="First name"
                         type="text"
                         info=""
-                        error={formik.errors.firstname}
-                        name = "firstname"
-                        value = {formik.values.firstname}
+                        error={formik.errors.name}
+                        name = "name"
+                        value = {formik.values.name}
                         onChange = {formik.handleChange}
-                        
                     />
-                    
-
                     <PrimaryInput
                         label="Last name"
                         type="text"
                         info=""
-                        error={formik.errors.lastname}
-                        name = "lastname"
-                        value = {formik.values.lastname}
+                        error={formik.errors.surname}
+                        name = "surname"
+                        value = {formik.values.surname}
                         onChange = {formik.handleChange}
                     />
                 </div>
                 <div className='box_image'>
                     <div className='teacher_image'>
-                        <img src={fileUrl} onChange={imageHandle} name="image" ></img>
+                        <img src={fileUrl}  name="image" />
                     </div>
-                    
-                    <input type="file" id ="Selectedinput" ref={hiddenFileInput} accept="image/*" onChange={imageHandle}></input>
-                    <SecondaryButton cursor="pointer"  onClick ={upLoadButton} type="button"> Add Image</SecondaryButton>
-                    
-                    
+                    <label className='button_base button_secondary' htmlFor="Selectedinput">
+                        <p>Add Image</p>
+                    </label>
+                    <input type="file" id ="Selectedinput" name='Selectedinput' ref={hiddenFileInput} accept="image/*" onChange={imageHandle} />
                 </div>
-                
             </div>
-            
             <div className='box_logindata'>
                 <SecondaryInput
                     label="Email"
@@ -198,16 +179,15 @@ const Teacher = () => {
                         name = "password"
                         value = {formik.values.password}
                         onChange = {formik.handleChange}
-                        
                     />
 
                     <SecondaryInput
                         label="Confirm Pass"
                         type="password"
                         info=""
-                        error={formik.errors.confirmpass}
-                        name = "confirmpass"
-                        value = {formik.values.confirmpass}
+                        error={formik.errors.confirmPassword}
+                        name = "confirmPassword"
+                        value = {formik.values.confirmPassword}
                         onChange = {formik.handleChange}
                         style={styleInput}
                     />
@@ -217,139 +197,133 @@ const Teacher = () => {
             </div>
 
             <div className='box_title'>
-                    
                     <div className='title_expertise'>
                         <div>
                             <PrimaryInput
                                 label="Title"
                                 type="text"
                                 info=""
-                                error={formik.errors.title}
-                                name = "title"
-                                value = {formik.values.title}
+                                error={formik.errors.degreeName}
+                                name = "degreeName"
+                                value = {formik.values.degreeName}
                                 onChange = {formik.handleChange}
                                 
                             />
                         </div>
-                    
                         <div>
                             <PrimaryInput
                                 label="Expertise"
                                 type="text"
                                 info=""
-                                error={formik.errors.expertise}
-                                name = "expertise"
-                                value = {formik.values.expertise}
+                                error={formik.errors.teacherType}
+                                name = "teacherType"
+                                value = {formik.values.teacherType}
                                 onChange = {formik.handleChange}
                             />
                         </div>
-                    
                     </div>
-                    
-
                 <SecondaryInput
-                    label="Description"
+                    label="About"
                     type="text"
                     info=""
-                    error={formik.errors.description}
-                    name = "description"
-                    value = {formik.values.description}
-                    onChange = {formik.handleChange}
+                    error={formik.errors.aboutDescription}
+                    name="aboutDescription"
+                    value={formik.values.aboutDescription}
+                    onChange={formik.handleChange}
                 />
             </div>
-            
-            
             <div className='box_institution'>
                 <div className='instituion_holder'>
-                <label>Institutions</label>
-                    {initial.institutions.map((inst,index)=>(
-                        <div key={index} className='institutions'>
-                        
+                    <label>Institutions</label>
+                    <div className='institutions'>
                         <div className='instInput'>
-                            <PrimaryInput             
+                            <PrimaryInput
                                     type="text"
                                     info=""
                                     error={formik.errors.institutions}
-                                    name = {`institutions[${index}]`}
-                                    value =  {formik.values.institutions[index]}
-                                    onChange = {formik.handleChange}
+                                    name={`institution`}
+                                    value={institutionsTxt}
+                                    onChange={(e) => setInstitutionsTxt(e.target.value)}
                                     style={styleInput}
                                 />
                         </div>
-
                         <div className='instButton'>
                             <BaseButton 
                                 type="button" 
                                 style={{backgroundColor: "blue", fontWeight: 'bold'}}
-                                >
-                                    <Icon icon="carbon:add-filled" />
-                                    ADD
-                                </BaseButton>
-            
-                                <BaseButton type="button" style={{backgroundColor: "gray", fontWeight: 'bold'}}>
-                                    <Icon icon="fa6-solid:trash-can" />
-                                        DEL
-                                </BaseButton>
+                                onClick={() => addToArr(setInstitutions, setInstitutionsTxt, institutionsTxt)}
+                            >
+                                <Icon icon="carbon:add-filled" />
+                                ADD
+                            </BaseButton>
                         </div>
-                        </div>
-                        
-                    ))}
+                    </div>
+                    {
+                        institutions.map((item, index) => {
+                            return(
+                                <div key={index} className="institutions">
+                                    <p className='instInput'>{item}</p>
+                                    <BaseButton type="button" style={{backgroundColor: "gray", fontWeight: 'bold'}} onClick={() => deleteFromArr(institutions,setInstitutions,item)} >
+                                        <Icon icon="fa6-solid:trash-can" />
+                                            DEL
+                                    </BaseButton>
+                                </div>
+                            );
+                        })
+                    }
                 </div>
 
                 <div className='platform_holder'>
-                <label>Plataforms</label>
-                    {initial.plataforms.map((palt,index2)=>(
-                        <div key={index2} className='plataforms'>
-                        
-                            <div className='platInput'>
-                                <PrimaryInput             
-                                        type="text"
-                                        info=""
-                                        error={formik.errors.plataforms}
-                                        name = {`plataforms[${index2}]`}
-                                        value =  {formik.values.plataforms[index2]}
-                                        onChange = {formik.handleChange}
-                                        style={styleInput}
-                                    />
-                            </div>
-
-                            <div className='platButton'>
-                                <BaseButton 
-                                    type="button" 
-                                    style={{backgroundColor: "blue", fontWeight: 'bold'}}
-                                    >
-                                        <Icon icon="carbon:add-filled" />
-                                        ADD
-                                </BaseButton>
-                
-                                <BaseButton type="button" style={{backgroundColor: "gray", fontWeight: 'bold'}}>
-                                        <Icon icon="fa6-solid:trash-can" />
-                                            DEL
-                                </BaseButton>
-                            </div>
-
+                    <label>Plataforms</label>
+                    <div className='plataforms'>
+                        <div className='platInput'>
+                            <PrimaryInput             
+                                    type="text"
+                                    info=""
+                                    error={formik.errors.plataforms}
+                                    name={`plataforms`}
+                                    value={platformsTxt}
+                                    onChange = {(e) => setPlatformsTxt(e.target.value)}
+                                    style={styleInput}
+                                />
                         </div>
-                        
-                    ))}
+                        <div className='platButton'>
+                            <BaseButton 
+                                type="button" 
+                                style={{backgroundColor: "blue", fontWeight: 'bold'}}
+                                onClick={() => addToArr(setPlatforms, setPlatformsTxt, platformsTxt)}
+                            >
+                                <Icon icon="carbon:add-filled" />
+                                ADD
+                            </BaseButton>
+                        </div>
+                    </div>
+                    {
+                        platforms.map((item, index) => {
+                            return(
+                                <div key={index} className="institutions">
+                                    <p className='instInput'>{item}</p>
+                                    <BaseButton type="button" style={{backgroundColor: "gray", fontWeight: 'bold'}} onClick={() => deleteFromArr(platforms, setPlatforms, item)} >
+                                        <Icon icon="fa6-solid:trash-can" />
+                                        DEL
+                                    </BaseButton>
+                                </div>
+                            );
+                        })
+                    }
                 </div>
-                
-                
-        
             </div>
-
             <div className='box_buttons'>
                 <div className='button'>
-                    <PrimaryButton type="submit" onClick={formik.handleSubmit}>
+                    <PrimaryButton type='button' onClick={formik.handleSubmit}>
                         ACCEPT
                     </PrimaryButton>
                 </div>
-                
                 <div>
                     <SecondaryButton>
                         CANCEL
                     </SecondaryButton>
                 </div>
-                
             </div>
         </form>
     </div>
