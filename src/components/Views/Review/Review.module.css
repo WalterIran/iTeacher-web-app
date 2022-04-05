@@ -1,0 +1,77 @@
+.container{
+  width: 100%;
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 2px 4px #000;
+  overflow: hidden;
+  padding: 2rem 2.5rem;
+}
+
+.section{
+  width: 100%;
+}
+
+.info{
+  display: flex;
+  align-items: center;
+}
+
+.title{
+  width: 80%;
+}
+
+.courseData{
+  flex: 1;
+}
+
+.bold{
+  font-weight: 700;
+}
+
+.reviews{
+  width: 100%;
+  padding: 1rem .1rem;
+  min-height: 20vh;
+  max-height: 70vh;
+  overflow-y: auto;
+}
+
+.addReview{
+  display: flex;
+  padding: 1rem 0;
+}
+
+.reviewForm{
+  width: 80%;
+  padding-right: 1.5rem;
+}
+
+.reviewNote{
+  flex: 1;
+}
+
+.input{
+  width: 100%;
+  margin-bottom: 1rem;
+  background-color: #eee;
+  border: none;
+  border-radius: .5rem;
+  font-size: 1.2rem;
+  padding: .3rem;
+}
+
+.textarea{
+  height: 5rem;
+  resize: none;
+}
+
+.reviewPost{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.combobox{
+  height: 2rem;
+  width: 4rem;
+}

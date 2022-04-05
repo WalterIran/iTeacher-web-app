@@ -1,75 +1,60 @@
+import { useEffect, useState } from 'react';
 import Review from './Review'
 import Header from '../../UI/Header/Header'
 import Page from '../../UI/Page/Page'
-import { publicAxios } from '../../../Lib/apiClient';
-import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import axios from '../../../api/axios';
+import axiosOriginal from 'axios';
 
 
 const ReviewPage = () => {
-  const [txtTitle, settxtTitle] = useState('');
-  const [txtDescription, setDescription] = useState('');
-  const [txtRating, settxtRating] = useState('');
-  const [course, setcourse] = useState({});
-  const params = useParams();
+  const [reviews, setReviews] = useState([]);
+  const [nextPage, setNextPage] = useState(null);
+  const [course, setCourse] = useState(null);
 
+    
+  const initialValues = {
+    reviewTitle: '',
+    reviewDescription: '',
+    rating: 1
+  }
+
+  const formik = useFormik({
+    initialValues: initialValues,
+    validationSchema: Yup.object(validationSchema),
+    onSubmit: async (formValues) => {
+      try {
+        console.log(formValues);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+  });
 
   useEffect(() => {
     (async () => {
-      const res = await publicAxios.get(`api/v1/courses/byid/621fa72c386309b3428473aa`);
-      setcourse(res.data.result);
-      console.log(res.data)
+      const res = await axios.get(`/courses/byid/${'621eecae65b5df2023feb2df'}`);
+      setCourse(res.data.result);
+
+      const res2 = await axios.get(`/courses/byid/${'621eecae65b5df2023feb2df'}/reviews`);
+      setReviews(res2.data.results.docs);
+      setNextPage(res2.data.nextPage);
     })();
-
+  
     return () => {
-      setcourse({});
+      setReviews([]);
     }
+  }, []);
 
-  }, [params.id])
-
-
-  const onChangeHandler = ({ target: { name, value } }) => {
-    switch (name) {
-      case 'Title':
-        settxtTitle(value);
-        break;
+  const loadMore = async () => {
+    try {
+      const res = await axiosOriginal.get(nextPage);
+      setReviews([...reviews, ...res.data.results.docs]);
+      setNextPage(res.data.nextPage);
+    } catch (error) {
+      console.error(error);
     }
-    switch (name) {
-      case 'Description':
-        setDescription(value);
-        break;
-    }
-    switch (name) {
-      case 'Rating':
-        settxtRating(value);
-        break;
-    }
-
-
-  }
-  const onConfirm = async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log(txtTitle)
-    console.log(txtDescription)
-    console.log(txtRating)
-
-    // try {
-
-    //   const data = publicAxios.post('/api/v1/courses/byid/:id/add-review',
-
-    //     {
-    //       //_id
-    //       dataTitle: txtTitle,
-    //       dataDescription: txtDescription,
-    //       rating: txtRating
-    //     });
-
-    //   console.log('Post request: ', data)
-    // } catch (ex) {
-    //   console.log('Error on Post request', ex)
-    // }
-
   }
 
   return (
@@ -77,10 +62,10 @@ const ReviewPage = () => {
       header={<Header />}
     >
       <Review
-        txtTitleValue={txtTitle}
-        txtDescriptionValue={txtDescription}
-        onChange={onChangeHandler}
-        onConfirmClick={onConfirm}
+        formik={formik}
+        reviews={reviews}
+        nextPage={nextPage}
+        loadMore={loadMore}
         course={course}
       />
 
@@ -88,4 +73,10 @@ const ReviewPage = () => {
   )
 }
 
-export default ReviewPage
+export default ReviewPage;
+
+const validationSchema = {
+  reviewTitle: Yup.string().required("Required field"),
+  reviewDescription: Yup.string(),
+  rating: Yup.number("Select a number")
+}
