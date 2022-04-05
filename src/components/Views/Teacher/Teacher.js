@@ -92,7 +92,7 @@ const Teacher = () => {
         title:'',
         expertise:'',
         description:'',
-        institutions:[''],
+        institutions:['',''],
         plataforms:[''],
         image: ''
     }
@@ -102,31 +102,31 @@ const Teacher = () => {
         validationSchema: validation,
         onSubmit: values => {
           console.log(values);
-          let path = `/login`; 
-          navigate(path);
-        //   try{
+        //   let path = `/login`; 
+        //   navigate(path);
+          try{
         
-        //     const data = privateAxios.post(
-        //         '/api/v1/auth/teacher-signup',
+            const data = publicAxios.post(
+                '/api/v1/auth/teacher-signup',
                 
-        //         {
-        //             name:values.firstname,
-        //             surname:values.lastname,
-        //             teacherType:values.description,
-        //             degreeName:values.title,
-        //             aboutDescription:values.description,
-        //             institutions:values.institutions,
-        //             platforms:values.platform,
-        //             email:values.email,
-        //             password:values.password,
-        //             confirmPassword:values.confirmpass
+                {
+                    name:values.firstname,
+                    surname:values.lastname,
+                    teacherType:values.description,
+                    degreeName:values.title,
+                    aboutDescription:values.description,
+                    institutions:values.institutions,
+                    platforms:values.platform,
+                    email:values.email,
+                    password:values.password,
+                    confirmPassword:values.confirmpass
 
-        //         });
+                });
         
-        //     console.log('Signin Request: ',data)
-        // }catch(ex){
-        //     console.log('Error on Signin submit',ex)
-        // }
+            console.log('Signin Request: ',data)
+        }catch(ex){
+            console.log('Error on Signin submit',ex)
+        }
           
           
         },
@@ -298,7 +298,7 @@ const Teacher = () => {
 
                 <div className='platform_holder'>
                 <label>Plataforms</label>
-                    {initial.institutions.map((palt,index2)=>(
+                    {initial.plataforms.map((palt,index2)=>(
                         <div key={index2} className='plataforms'>
                         
                             <div className='platInput'>
