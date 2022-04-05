@@ -3,15 +3,18 @@ import axios from "axios";
 export const publicAxios = axios.create();
 export const privateAxios = axios.create();
 
-publicAxios.defaults.baseURL = process.env.REACT_APP_API_URL;
-privateAxios.defaults.baseURL = process.env.REACT_APP_API_URL;
+publicAxios.defaults.headers.common['APITOKEN']=process.env.REACT_APP_APITOKEN;
+privateAxios.defaults.headers.common['APITOKEN']=process.env.REACT_APP_APITOKEN;
 
-publicAxios.defaults.headers.common['cache-control'] = 'no-cache';
-privateAxios.defaults.headers.common['cache-control'] = 'no-cache';
+publicAxios.defaults.baseURL = process.env.REACT_APP_APIURL;
+privateAxios.defaults.baseURL = process.env.REACT_APP_APIURL;
 
-publicAxios.defaults.headers.common['Content-Type'] = 'application/json';
-privateAxios.defaults.headers.common['Content-Type'] = 'application/json';
+publicAxios.defaults.headers.common['cache-control']='no-cache';
+privateAxios.defaults.headers.common['cache-control']='no-cache';
 
-export const setJWT = (jwt) => {
-    privateAxios.defaults.headers.common['Authorization'] = `Bearer ${jwt}`;
+publicAxios.defaults.headers.common['Content-Type']='application/json';
+privateAxios.defaults.headers.common['Content-Type']='application/json';
+
+export const  setJWT = (jwt) =>{
+    privateAxios.defaults.headers.common['Authorization'] =`Bearer ${jwt}`; 
 }
