@@ -1,0 +1,42 @@
+.course{
+    box-shadow: 0 2px 4px #000;
+    padding: 1rem;
+    border-radius: 1rem;
+    font-size: 12px;
+}
+
+.spaceBetween{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: .7rem;
+}
+
+.courseTitle{
+    font-weight: bold;
+    font-size: 1rem;
+}
+
+.subtitle{
+    font-weight: bold;
+}
+
+.widthFull{
+    display: flex;
+}
+
+.link{
+    width: 14.5rem;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.btnSection{
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn{
+    margin-top: .7rem;
+    font-weight: bold;
+}

@@ -90,17 +90,7 @@ const Review = ({
                     >Post</PrimaryButton>
                 </div>
             </div>
-
-
-
-
-
-
-
-
         </div>
-
-
     )
 }
 
