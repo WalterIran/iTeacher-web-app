@@ -4,7 +4,6 @@
 
 .container-signup {
     position: relative;
-    width: 100vw;
     background-color: #fff;
     height: 91.4vh;
     overflow: hidden;
@@ -122,6 +121,12 @@ form.sign-in-form {
 }
 */
 
+.buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+}
+
 .btn {
     width: 150px;
     height: 49px;
@@ -129,9 +134,23 @@ form.sign-in-form {
     color: #fff;
     text-transform: uppercase;
     font-weight: 600;
-    margin: 10px 0;
+    margin: 10px 10px;
     cursor: pointer;
     transition: 0.5s;
+}
+
+.btn_caption {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.btn2 {
+    background-color: #FFCC4D;
+}
+
+.info {
+    font-size: 0.8rem;
 }
 
 .btn:hover {
@@ -211,12 +230,12 @@ form.sign-in-form {
 @media (max-width: 870px) {
     .container-signup {
         min-height: 800px;
-        height: 100vh;
+        height: 91.4vh;
     }
     .signup-form {
         width: 100%;
         top: 95%;
-        transform: translate(-50%, -100%);
+        transform: translate(-50%, -75%);
         transition: 1s 0.8s ease-in-out;
     }
     .signup-form {
@@ -283,10 +302,14 @@ form.sign-in-form {
         padding: 0.5rem 1rem;
     }
     .container-signup {
+        min-height: 680px;
         padding: 1.5rem;
     }
     .container-signup:before {
-        bottom: 72%;
+        bottom: 80%;
         left: 50%;
+    }
+    .signup-form {
+        transform: translate(-50%, -90%);
     }
 }
