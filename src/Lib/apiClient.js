@@ -6,8 +6,8 @@ export const privateAxios = axios.create();
 publicAxios.defaults.headers.common['APITOKEN']=process.env.REACT_APP_APITOKEN;
 privateAxios.defaults.headers.common['APITOKEN']=process.env.REACT_APP_APITOKEN;
 
-publicAxios.defaults.baseURL = process.env.REACT_APP_APIURL;
-privateAxios.defaults.baseURL = process.env.REACT_APP_APIURL;
+publicAxios.defaults.baseURL = process.env.REACT_APP_API_URL;
+privateAxios.defaults.baseURL = process.env.REACT_APP_API_URL;
 
 publicAxios.defaults.headers.common['cache-control']='no-cache';
 privateAxios.defaults.headers.common['cache-control']='no-cache';

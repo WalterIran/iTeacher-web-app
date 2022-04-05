@@ -1,14 +1,15 @@
 import { Icon } from '@iconify/react';
+import { useNavigate } from 'react-router-dom';
 import './Register.options.css'
 
 const Register = () => {
-
+  const navigate = useNavigate();
   return (
     <div className='container'>
       <div className='box'>
         <h1>Register Options</h1>
         <div className='cards'>
-          <div className='card'>
+          <div className='card' onClick={() => navigate('/teacher-registration')}>
             <div className='card-thumb'>
               <Icon icon="fa-solid:chalkboard-teacher" color="#ffcc4d" />
             </div>
@@ -22,7 +23,7 @@ const Register = () => {
               </p>
             </div>
           </div>
-          <div className='card'>
+          <div className='card' onClick={() => navigate('/student-registration')}>
             <div className='card-thumb'>
               <Icon icon="ph:student-fill" color="#ffcc4d" className='Img' />
             </div>
