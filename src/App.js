@@ -15,7 +15,7 @@ function App() {
       <Route path="/" element={<SamplePage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/teacher-registration" element={<TeacherPage />} />
-      <Route path="/profile" element={<Profile />} />
+      <Route path='/profile/:id' element={<Profile />} />
       <Route path="/search" element={<Search />} />
       <Route path="/review" element={<Review />} />
       <Route path="/register-options" element={<RegisterOption />} />

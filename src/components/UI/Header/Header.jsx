@@ -1,5 +1,5 @@
 import './Header.css';
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import { Icon } from '@iconify/react';
 import AuthContext from '../../../context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
@@ -7,11 +7,26 @@ import { SecondaryButton } from '../Form/Button/Button';
 
 const Header = ({showSearch = true}) => {
     const { auth, setAuth } = useContext(AuthContext);
+    const [ text, setText ] = useState('');
     const navigate = useNavigate();
 
     const logout = () => {
         setAuth({});
         navigate('/login');
+    }
+
+    const onSubmit = (e) => {
+        if(e.key === 'Enter' && text !== ''){
+            navigate('/search',{
+                state:{
+                    search: text
+                }
+            });
+        }
+    }
+
+    const handleChange = (e) => {
+        setText(e.target.value);
     }
 
   return (
@@ -21,7 +36,7 @@ const Header = ({showSearch = true}) => {
             {
                 showSearch &&
                 <div className="search_container">
-                    <input type="text" placeholder='Search...' />
+                    <input type="text" placeholder='Search...' onKeyDown={onSubmit} onChange={handleChange} value={text} />
                     <Icon color='#999' icon="akar-icons:search" />
                 </div>
             }
@@ -54,4 +69,4 @@ const Header = ({showSearch = true}) => {
   )
 }
 
-export default Header
+export default Header;
