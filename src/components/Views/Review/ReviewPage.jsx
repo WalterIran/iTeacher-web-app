@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import Review from './Review'
 import Header from '../../UI/Header/Header'
 import Page from '../../UI/Page/Page'
@@ -6,14 +6,16 @@ import { useFormik } from 'formik';
 import * as Yup from 'yup';
 import axios, { axiosPrivate } from '../../../api/axios';
 import axiosOriginal from 'axios';
-
+import { useParams } from 'react-router-dom';
+import AuthContext from '../../../context/AuthProvider';
 
 const ReviewPage = () => {
   const [reviews, setReviews] = useState([]);
   const [nextPage, setNextPage] = useState(null);
   const [course, setCourse] = useState(null);
+  const { auth } = useContext(AuthContext);
+  const params = useParams();
 
-    
   const initialValues = {
     reviewTitle: '',
     reviewDescription: '',
@@ -25,10 +27,16 @@ const ReviewPage = () => {
     validationSchema: Yup.object(validationSchema),
     onSubmit: async (formValues) => {
       try {
-        const res = await axiosPrivate.post(`/courses/byid/${'621eecae65b5df2023feb2df'}/add-review`,
-          {...formValues}
+        const res = await axiosPrivate.post(`/courses/byid/${params.id}/add-review`,
+          {
+            ...formValues,
+            studentId: auth.user._id
+          }
         )
-        console.log(res.data);
+        const res2 = await axios.get(`/courses/byid/${params.id}/reviews`);
+        setReviews(res2.data.results.docs);
+        setNextPage(res2.data.nextPage);
+        formik.resetForm();
       } catch (error) {
         console.error(error);
       }
@@ -37,18 +45,18 @@ const ReviewPage = () => {
 
   useEffect(() => {
     (async () => {
-      const res = await axios.get(`/courses/byid/${'621eecae65b5df2023feb2df'}`);
+      const res = await axios.get(`/courses/byid/${params.id}`);
       setCourse(res.data.result);
 
-      const res2 = await axios.get(`/courses/byid/${'621eecae65b5df2023feb2df'}/reviews`);
+      const res2 = await axios.get(`/courses/byid/${params.id}/reviews`);
       setReviews(res2.data.results.docs);
       setNextPage(res2.data.nextPage);
     })();
-  
+
     return () => {
       setReviews([]);
     }
-  }, []);
+  }, [params.id]);
 
   const loadMore = async () => {
     try {

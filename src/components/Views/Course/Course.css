@@ -80,6 +80,7 @@ img {
   --bs-gutter-y: 0;
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
   margin-top: calc(var(--bs-gutter-y) * -1);
   margin-right: calc(var(--bs-gutter-x) * -.5);
   margin-left: calc(var(--bs-gutter-x) * -.5)

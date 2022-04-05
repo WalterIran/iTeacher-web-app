@@ -1,85 +1,55 @@
 import Course from './Course'
 import Header from '../../UI/Header/Header'
 import Page from '../../UI/Page/Page'
-import { useEffect, useState } from 'react';
-import { publicAxios } from '../../../Lib/apiClient';
-import { useParams } from 'react-router-dom';
+import { useContext } from 'react';
+import AuthContext from '../../../context/AuthProvider';
+
+import { useFormik } from 'formik';
+import * as Yup from 'yup';
+import { axiosPrivate } from '../../../api/axios';
+import { useNavigate } from 'react-router-dom';
 
 const CoursePage = () => {
-  const [teacher, setTeacher] = useState({});
-  const params = useParams();
-  const [txtCourse, settxtCourse] = useState('');
-  const [txtDescription, setDescription] = useState('');
-  const [txtStatus, settxtStatus] = useState('');
+  const { auth } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-  useEffect(() => {
-    (async () => {
-      const res = await publicAxios.get(`api/v1/users/byid/621a70819949f3759995cbf9`);
-      setTeacher(res.data.result);
-      console.log(res.data)
-    })();
-
-    return () => {
-      setTeacher({});
+  const formik = useFormik({
+    initialValues: initialValues,
+    validationSchema: Yup.object(validationSchema),
+    onSubmit: async (formValues) => {
+      try {
+        const res = await axiosPrivate.post(`/courses/create`,
+          {
+            ...formValues,
+            userId: auth.user._id
+          }
+        )
+        navigate(-1);
+      } catch (error) {
+        console.error(error);
+      }
     }
-
-  }, [params.id])
-
-  const onChangeHandler = ({ target: { name, value } }) => {
-    switch (name) {
-      case 'Course':
-        settxtCourse(value);
-        break;
-      case 'Description':
-        setDescription(value);
-        break;
-      case 'Status':
-        settxtStatus(value);
-        break;
-    }
-
-  }
-  const onConfirm = async (e) => {
-    e.preventDefault();
-    e.stopPropagation();
-    console.log(txtCourse)
-    console.log(txtDescription)
-    console.log(txtStatus)
-
-    // try {
-
-    //   const data = publicAxios.post('/api/v1/courses/create',
-
-    //     {
-    //       //userId:
-    //       courseName: txtCourse,
-    //       courseDescription: txtDescription,
-    //       courseStatus: txtStatus
-    //     });
-
-    //   console.log('Post request: ', data)
-    // } catch (ex) {
-    //   console.log('Error on Post request', ex)
-    // }
-
-  }
+  });
 
   return (
     <Page
       header={<Header />}
     >
       <Course
-        txtCourseValue={txtCourse}
-        txtDescriptionValue={txtDescription}
-        txtStatusValue={txtStatus}
-        onChange={onChangeHandler}
-        onConfirmClick={onConfirm}
-        teacher={teacher}
-
-
+        teacher={auth.user}
+        formik={formik}
       />
     </Page>
   )
 }
 
-export default CoursePage
+export default CoursePage;
+
+const initialValues = {
+  courseName: '',
+  courseDescription: ''
+}
+const validationSchema = {
+  courseName: Yup.string().required(),
+  courseDescription: Yup.string().required()
+}

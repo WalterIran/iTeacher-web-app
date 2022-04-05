@@ -24,6 +24,7 @@ const Login = () => {
       });
 
       setAuth({ ...response.data });
+      localStorage.setItem("user",JSON.stringify({...response.data}));
       setEmail('')
       setPassword('')
       navigate('/');
@@ -71,11 +72,10 @@ const Login = () => {
               </PrimaryButton>
             </div>
             <div className="button-signin">
-              <PrimaryButton style={{ width: "200px" }}>Sign Up</PrimaryButton>
+              <PrimaryButton style={{ width: "200px" }} onClick={() => navigate('/register-options')}>Sign Up</PrimaryButton>
             </div>
           </div>
         </div>
-      
     </>
   );
 };

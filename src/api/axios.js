@@ -15,8 +15,7 @@ export const axiosPrivate = axios.create({
     headers: {
         'Content-Type': 'application/json',
         'cache-control': 'no-cache'
-    },
-    withCredentials: true
+    }
 });
 
 //Provisional

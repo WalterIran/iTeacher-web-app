@@ -1,11 +1,18 @@
 import styles from './ProfileCourse.module.css';
 import { PrimaryButton } from '../Form/Button/Button';
+import { useNavigate } from 'react-router-dom';
 
 const ProfileCourse = ({
     courseName,
     courseStatus,
-    
+    _id
 }) => {
+    const navigate = useNavigate();
+
+    const onDetailClick = () => {
+        navigate(`/course/${_id}`);
+    }
+
   return (
     <div className={styles.course}>
         <div className={styles.spaceBetween}>
@@ -27,7 +34,7 @@ const ProfileCourse = ({
             <a href="about:blank" target="_blank" rel="noreferrer" className={styles.link}>https://www.example.com/link-to-my-course--lorem-lorem-lorem</a>
         </div>
         <div className={styles.btnSection}>
-            <PrimaryButton className={styles.btn}>
+            <PrimaryButton className={styles.btn} onClick={onDetailClick}>
                 Details
             </PrimaryButton>
         </div>

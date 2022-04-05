@@ -13,6 +13,7 @@ const Search = ({results, nextPage, onLoadMore}) => {
                 return(
                   <SearchResult
                     key={item?._id}
+                    courseId={item?._id}
                     courseName={item?.courseName}
                     courseDescription={item?.courseDescription}
                     teacherId={item?.teacherInfo[0]?._id}

@@ -1,21 +1,27 @@
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import styles from './Profile.module.css';
 import { Icon } from '@iconify/react';
 import ProfileCourse from '../../UI/ProfileCourse/ProfileCourse';
 import axios from '../../../api/axios';
 import { PrimaryButton } from '../../UI/Form/Button/Button';
 import {defautl as axiosOriginal} from 'axios';
+import AuthContext from '../../../context/AuthProvider';
+import { useNavigate } from 'react-router-dom';
 
 const Profile = ({teacher}) => {
     const [courses, setCourses] = useState([]);
     const [nextPage, setNextPage] = useState(null);
+    const { auth } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     useEffect(() => {
-      (async () => {
-          const res = await axios.get(`/courses/teacher-courses/${teacher._id}/list-courses`);
-          setCourses(res.data.results.docs);
-          setNextPage(res.data.nextPage);
-      })();
+        if(teacher){
+            (async () => {
+                const res = await axios.get(`/courses/teacher-courses/${teacher?._id}/list-courses`);
+                setCourses(res.data.results.docs);
+                setNextPage(res.data.nextPage);
+            })();
+        }
     
       return () => {
         setCourses([])
@@ -36,12 +42,11 @@ const Profile = ({teacher}) => {
     <section className={styles.container}>
         <div className={styles.upperContainer}>
             <div className={styles.coverImgContainer}>
-                <img src="http://via.placeholder.com/1366x200" alt="cover pic" />
             </div>
             <div className={styles.generalInfoContainer}>
                 <div className={styles.upperInfoContainer}>
                     <div className={styles.upperInfoLeft}>
-                        <img src="http://via.placeholder.com/168x168" alt="profile pic" />
+                        <img style={{objectFit: 'contain', backgroundColor: '#fff'}} src={teacher?.profileImg || "http://via.placeholder.com/168x168"} alt="profile pic" />
                         <div className={styles.nameContainer}>
                             <h2>{teacher?.username}</h2>
                             <p>{teacher?.teacherType}</p>
@@ -104,10 +109,12 @@ const Profile = ({teacher}) => {
         <div className={styles.lowerContainer}>
             <div className={styles.coursesGeneralTitle}>
                 <h3>COURSES</h3>
-                <div className={styles.search_container}>
-                    <input type="text" placeholder="Search teacher's courses" />
-                    <Icon color='#999' icon="akar-icons:search" />
-                </div>
+                {
+                    auth?.user?._id === teacher?._id && 
+                    <PrimaryButton onClick={() => navigate('/add-course')}>
+                        Add Course
+                    </PrimaryButton>
+                }
             </div>
             <div className={styles.coursesSection}>
                 {

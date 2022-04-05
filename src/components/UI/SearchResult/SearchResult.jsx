@@ -20,6 +20,10 @@ const SearchResult = ({
         navigate(`/profile/${teacherId}`);
     }
 
+    const onCourseClick = () => {
+        navigate(`/course/${courseId}`);
+    }
+
   return (
     <div className={styles.container}>
         <div className={styles.teacherInfo}>
@@ -39,7 +43,7 @@ const SearchResult = ({
                 {courseDescription}
             </p>
             <div className="">
-                <PrimaryButton className={styles.btnPrimary}>
+                <PrimaryButton className={styles.btnPrimary} onClick={onCourseClick}>
                     Course Details
                 </PrimaryButton>
             </div>
