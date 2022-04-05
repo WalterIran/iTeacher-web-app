@@ -17,10 +17,10 @@ const Course = ({
     return (
 
 
-        <div>
+        <div className="containerCs">
             <div>
                 <div style={{ boxShadow: '-5px 5px 5px rgba(33,37,41,0.16), 0px -5px 5px rgba(33,37,41,0.16), 0px -5px 5px rgba(33,37,41,0.16)', borderRadius: 20, marginTop: 30 }}>
-                    <div className="row">
+                    <div className="rowCs">
                         <div className="col-md-6 col-xl-3 col-xxl-3"><img style={{ display: 'block', marginLeft: 'auto', marginRight: 'auto', marginTop: 50 }} /></div>
                         <div className="col-md-6 col-xl-9 col-xxl-9">
                             <h2><br />{teacher.username}<br /><br /></h2>

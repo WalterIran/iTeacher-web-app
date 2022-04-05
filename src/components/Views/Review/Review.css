@@ -1,7 +1,3 @@
-body {
-  margin: 0;
- 
-}
 h2 {
   margin-top: 0;
   margin-bottom: 0.5rem;
@@ -61,7 +57,7 @@ p {
   margin-bottom: 1rem;
 }
 
-.container {
+.containerRv {
   width: 100%;
   padding-right: var(--bs-gutter-x, 0.75rem);
   padding-left: var(--bs-gutter-x, 0.75rem);
@@ -69,31 +65,31 @@ p {
   margin-left: auto;
 }
 @media (min-width: 576px) {
-  .container {
+  .containerRv {
     max-width: 540px;
   }
 }
 @media (min-width: 768px) {
-  .container {
+  .containerRv {
     max-width: 720px;
   }
 }
 @media (min-width: 992px) {
-  .container {
+  .containerRv {
     max-width: 960px;
   }
 }
 @media (min-width: 1200px) {
-  .container {
+  .containerRv {
     max-width: 1140px;
   }
 }
 @media (min-width: 1400px) {
-  .container {
+  .containerRv {
     max-width: 1320px;
   }
 }
-.row {
+.rowRv {
   --bs-gutter-x: 1.5rem;
   --bs-gutter-y: 0;
   display: flex;
@@ -102,7 +98,7 @@ p {
   margin-right: calc(var(--bs-gutter-x) * -0.5);
   margin-left: calc(var(--bs-gutter-x) * -0.5);
 }
-.row > * {
+.rowRv > * {
   flex-shrink: 0;
   width: 100%;
   max-width: 100%;
@@ -110,15 +106,15 @@ p {
   padding-left: calc(var(--bs-gutter-x) * 0.5);
   margin-top: var(--bs-gutter-y);
 }
-.col {
+.colRv {
   flex: 1 0 0%;
 }
 @media (min-width: 768px) {
-  .col-md-3 {
+  .colRv-md-3 {
     flex: 0 0 auto;
     width: 25%;
   }
-  .col-md-8 {
+  .colRv-md-8 {
     flex: 0 0 auto;
     width: 66.66666667%;
   }

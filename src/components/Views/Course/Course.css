@@ -1,7 +1,3 @@
-body {
-  margin: 0;
- 
-}
 h2 {
   margin-top: 0;
   margin-bottom: 0.5rem;
@@ -41,7 +37,7 @@ img {
   vertical-align: middle
 }
 
-.container {
+.containerCs {
   width: 100%;
   padding-right: var(--bs-gutter-x, .75rem);
   padding-left: var(--bs-gutter-x, .75rem);
@@ -50,36 +46,36 @@ img {
 }
 
 @media (min-width:576px) {
-  .container {
+  .containerCs {
       max-width: 540px
   }
 }
 
 @media (min-width:768px) {
-  .container {
+  .containerCs {
       max-width: 720px
   }
 }
 
 @media (min-width:992px) {
-  .container {
+  .containerCs {
       max-width: 960px
   }
 }
 
 @media (min-width:1200px) {
-  .container {
+  .containerCs {
       max-width: 1140px
   }
 }
 
 @media (min-width:1400px) {
-  .container {
+  .containerCs {
       max-width: 1320px
   }
 }
 
-.row {
+.rowCs {
   --bs-gutter-x: 1.5rem;
   --bs-gutter-y: 0;
   display: flex;
@@ -89,7 +85,7 @@ img {
   margin-left: calc(var(--bs-gutter-x) * -.5)
 }
 
-.row>* {
+.rowCs>* {
   flex-shrink: 0;
   width: 100%;
   max-width: 100%;
