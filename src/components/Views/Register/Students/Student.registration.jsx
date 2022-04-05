@@ -71,12 +71,12 @@ const StudentRegister = () => {
     }
 
     return (
-        <div className="container-signup">
-            <div className="forms-container">
+        <div className="container_signup">
+            <div className="forms-container_signup">
                 <div className="signup-form">
                     <form action="#" className="sign-in-form">
-                        <h2 className="title">Sign up</h2>
-                        <div className="input-field">
+                        <h2 className="title_signup">Sign up</h2>
+                        <div className="input-field_signup">
                             <i className="fas fa-user"></i>
                             <PrimaryInput
                                 name="txtNombre"
@@ -86,7 +86,7 @@ const StudentRegister = () => {
                                 onChange={formik.handleChange}
                             />
                         </div>
-                        <div className="input-field">
+                        <div className="input-field_signup">
                             <Icon className="fas fa-lock"></Icon>
                             <PrimaryInput
                                 name="txtApellido"
@@ -97,7 +97,7 @@ const StudentRegister = () => {
                                 onChange={formik.handleChange}
                             />
                         </div>
-                        <div className="input-field">
+                        <div className="input-field_signup">
                             <Icon className="fas fa-lock"></Icon>
                             <PrimaryInput
                                 name="txtEmail"
@@ -108,7 +108,7 @@ const StudentRegister = () => {
                                 onChange={formik.handleChange}
                             />
                         </div>
-                        <div className="input-field">
+                        <div className="input-field_signup">
                             <Icon className="fas fa-lock"></Icon>
                             <PrimaryInput
                                 name="txtPassword"
@@ -119,7 +119,7 @@ const StudentRegister = () => {
                                 onChange={formik.handleChange}
                             />
                         </div>
-                        <div className="input-field">
+                        <div className="input-field_signup">
                             <Icon className="fas fa-lock"></Icon>
                             <PrimaryInput
                                 name="txtConfirmPassword"
@@ -130,13 +130,13 @@ const StudentRegister = () => {
                                 onChange={formik.handleChange}
                             />
                         </div>
-                        <div className='buttons'>
-                            <PrimaryButton type='submit' onClick={formik.handleSubmit} className="btn" >
+                        <div className='buttons_signup'>
+                            <PrimaryButton type='submit' onClick={formik.handleSubmit} className="btn_signup" >
                                 Signup
                             </PrimaryButton>
-                            <div className='btn_caption'>
-                                <p className='info'>Already have an account?</p>
-                                <BaseButton onClick={onLogin} className="btn btn2" >
+                            <div className='btn_caption_signup'>
+                                <p className='info_signup'>Already have an account?</p>
+                                <BaseButton onClick={onLogin} className="btn_signup btn2_signup" >
                                     login
                                 </BaseButton>
                             </div>
@@ -145,16 +145,15 @@ const StudentRegister = () => {
                 </div>
             </div>
 
-            <div className="panels-container">
-                <div className="panel left-panel">
-                    <div className="content">
+            <div className="panels-container_signup">
+                <div className="panel_signup left-panel_signup">
+                    <div className="content_signup">
                         <h3>STUDENT</h3>
                         <p>
-                            Lorem ipsum, dolor sit amet consectetur adipisicing elit. Debitis,
-                            ex ratione. Aliquid!
+                            Create your account and review many teachers on our website. Everyone will see what you say about them and choose at their own expent!
                         </p>
                     </div>
-                    <img src="/student.svg" className="image" alt="" />
+                    <img src="/student.svg" className="image_signup" alt="" />
                 </div>
             </div>
         </div>
