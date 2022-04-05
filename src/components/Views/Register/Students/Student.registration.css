@@ -2,16 +2,15 @@
     z-index: 100;
 }
 
-.container-signup {
+.container_signup {
     position: relative;
-    width: 100vw;
     background-color: #fff;
     height: 91.4vh;
     overflow: hidden;
     margin: -1rem -2rem -1rem -2rem;
 }
 
-.forms-container {
+.forms-container_signup {
     position: absolute;
     width: 100%;
     height: calc(87vh);
@@ -31,7 +30,7 @@
     z-index: 5;
 }
 
-form {
+.container_signup form {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -47,13 +46,13 @@ form.sign-in-form {
     z-index: 2;
 }
 
-.title {
+.title_signup {
     font-size: 2.2rem;
     color: #444;
     margin-bottom: 10px;
 }
 
-.input-field {
+.input-field_signup {
     max-width: 380px;
     width: 100%;
     background-color: #f0f0f0;
@@ -66,7 +65,7 @@ form.sign-in-form {
     position: relative;
 }
 
-.input-field i {
+.input-field_signup i {
     text-align: center;
     line-height: 55px;
     color: #acacac;
@@ -74,7 +73,7 @@ form.sign-in-form {
     font-size: 1.1rem;
 }
 
-.input-field input {
+.input-field_signup input {
     background: none;
     outline: none;
     border: none;
@@ -84,61 +83,48 @@ form.sign-in-form {
     color: #333;
 }
 
-.input-field input::placeholder {
+.input-field_signup input::placeholder {
     color: #aaa;
     font-weight: 500;
 }
 
-
-/*
-.social-text {
-    padding: 0.7rem 0;
-    font-size: 1rem;
-}
-
-.social-media {
+.buttons_signup {
     display: flex;
-    justify-content: center;
+    flex-direction: row;
+    align-items: flex-end;
 }
 
-.social-icon {
-    height: 46px;
-    width: 46px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0 0.45rem;
-    color: #333;
-    border-radius: 50%;
-    border: 1px solid #333;
-    text-decoration: none;
-    font-size: 1.1rem;
-    transition: 0.3s;
-}
-
-.social-icon:hover {
-    color: #4481eb;
-    border-color: #4481eb;
-}
-*/
-
-.btn {
+.btn_signup {
     width: 150px;
     height: 49px;
     border-radius: 49px;
     color: #fff;
     text-transform: uppercase;
     font-weight: 600;
-    margin: 10px 0;
+    margin: 10px 10px;
     cursor: pointer;
     transition: 0.5s;
 }
 
-.btn:hover {
+.btn_caption_signup {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.btn2_signup {
+    background-color: #FFCC4D;
+}
+
+.info_signup {
+    font-size: 0.8rem;
+}
+
+.btn_signup:hover {
     background-color: #4d84e2;
 }
 
-.panels-container {
+.panels-container_signup {
     position: absolute;
     height: calc(87vh);
     width: 100%;
@@ -148,7 +134,7 @@ form.sign-in-form {
     grid-template-columns: repeat(2, 1fr);
 }
 
-.container-signup:before {
+.container_signup:before {
     content: "";
     position: absolute;
     height: 2000px;
@@ -162,13 +148,13 @@ form.sign-in-form {
     z-index: 6;
 }
 
-.image {
+.image_signup {
     width: 80%;
     transition: transform 1.1s ease-in-out;
     transition-delay: 0.4s;
 }
 
-.panel {
+.panel_signup {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
@@ -176,117 +162,121 @@ form.sign-in-form {
     z-index: 6;
 }
 
-.left-panel {
+.left-panel_signup {
     pointer-events: all;
     padding: 2rem 17% 2rem 12%;
 }
 
-.right-panel {
+.right-panel_signup {
     pointer-events: none;
     padding: 3rem 12% 2rem 17%;
 }
 
-.panel .content {
+.panel_signup .content_signup {
     color: #fff;
     transition: transform 0.9s ease-in-out;
     transition-delay: 0.6s;
 }
 
-.panel h3 {
+.panel_signup h3 {
     font-weight: 600;
     line-height: 1;
     font-size: 1.5rem;
 }
 
-.panel p {
+.panel_signup p {
     font-size: 0.95rem;
     padding: 0.7rem 0;
 }
 
-.right-panel .image,
-.right-panel .content {
+.right-panel_signup .image_signup,
+.right-panel_signup .content_signup {
     transform: translateX(800px);
 }
 
 @media (max-width: 870px) {
-    .container-signup {
+    .container_signup {
         min-height: 800px;
-        height: 100vh;
+        height: 91.4vh;
     }
     .signup-form {
         width: 100%;
         top: 95%;
-        transform: translate(-50%, -100%);
+        transform: translate(-50%, -75%);
         transition: 1s 0.8s ease-in-out;
     }
     .signup-form {
         left: 50%;
     }
-    .panels-container {
+    .panels-container_signup {
         grid-template-columns: 1fr;
         grid-template-rows: 1fr 2fr 1fr;
     }
-    .panel {
+    .panel_signup {
         flex-direction: row;
         justify-content: space-around;
         align-items: center;
         padding: 2.5rem 8%;
         grid-column: 1 / 2;
     }
-    .right-panel {
+    .right-panel_signup {
         grid-row: 3 / 4;
     }
-    .left-panel {
+    .left-panel_signup {
         grid-row: 1 / 2;
     }
-    .image {
+    .image_signup {
         width: 200px;
         transition: transform 0.9s ease-in-out;
         transition-delay: 0.6s;
     }
-    .panel .content {
+    .panel_signup .content_signup {
         padding-right: 15%;
         transition: transform 0.9s ease-in-out;
         transition-delay: 0.8s;
     }
-    .panel h3 {
+    .panel_signup h3 {
         font-size: 1.2rem;
     }
-    .panel p {
+    .panel_signup p {
         font-size: 0.7rem;
         padding: 0.5rem 0;
     }
-    .container-signup:before {
+    .container_signup:before {
         width: 1500px;
         height: 1500px;
         transform: translateX(-50%);
         left: 30%;
-        bottom: 68%;
+        bottom: 72%;
         right: initial;
         top: initial;
         transition: 2s ease-in-out;
     }
-    .right-panel .image,
-    .right-panel .content {
+    .right-panel_signup .image_signup,
+    .right-panel_signup .content_signup {
         transform: translateY(300px);
     }
 }
 
 @media (max-width: 570px) {
-    form {
+    .container_signup form {
         padding: 0 1.5rem;
     }
-    .image {
+    .image_signup {
         display: none;
     }
-    .panel .content {
+    .panel_signup .content_signup {
         padding: 0.5rem 1rem;
     }
-    .container-signup {
+    .container_signup {
+        min-height: 680px;
         padding: 1.5rem;
     }
-    .container-signup:before {
-        bottom: 72%;
+    .container_signup:before {
+        bottom: 80%;
         left: 50%;
+    }
+    .signup-form {
+        transform: translate(-50%, -90%);
     }
 }

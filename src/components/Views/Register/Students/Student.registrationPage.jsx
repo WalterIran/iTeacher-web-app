@@ -3,11 +3,14 @@ import Header from '../../../UI/Header/Header'
 import Page from '../../../UI/Page/Page'
 
 const StudentRegister = () => {
+
   return (
     <Page
-      header={<Header/>}
+      header={<Header showSearch={false} />}
     >
-        <Registration />
+      <Registration
+
+      />
     </Page>
   )
 }
