@@ -1,7 +1,19 @@
 import './Header.css';
+import { useContext } from 'react';
 import { Icon } from '@iconify/react';
+import AuthContext from '../../../context/AuthProvider';
+import { useNavigate } from 'react-router-dom';
+import { SecondaryButton } from '../Form/Button/Button';
 
 const Header = ({showSearch = true}) => {
+    const { auth, setAuth } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const logout = () => {
+        setAuth({});
+        navigate('/login');
+    }
+
   return (
     <>
         <div className="header_left">
@@ -15,12 +27,28 @@ const Header = ({showSearch = true}) => {
             }
         </div>
         <div className="header_right">
-            <button type='button' className='login_button'>
-                <span className="only_large">Log in / Sign up</span>
-                <span className='only_small login_btn_text'>
-                    <Icon color='#fff' icon="uil:signin" />
-                </span>
-            </button>
+            {
+                auth.user ? (
+                    <>
+                        <button type='button' className='login_button' onClick={() => navigate(`/profile/${auth.user._id}`)}>
+                            <span className="only_large">Hola {auth.user.username.split(' ')[0]}</span>
+                            <span className='only_small login_btn_text'>
+                                <Icon color='#fff' icon="uil:signin" />
+                            </span>
+                        </button>
+                        <SecondaryButton onClick={logout}>
+                            logout
+                        </SecondaryButton>
+                    </>
+                ) : (
+                    <button type='button' className='login_button' onClick={() => navigate('/login')}>
+                        <span className="only_large">Log in / Sign up</span>
+                        <span className='only_small login_btn_text'>
+                            <Icon color='#fff' icon="uil:signin" />
+                        </span>
+                    </button>
+                )
+            }
         </div>
     </>
   )

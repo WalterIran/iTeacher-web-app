@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import "./Login.css";
-import { PrimaryButton, SecondaryButton } from "../../UI/Form/Button/Button";
+import { PrimaryButton } from "../../UI/Form/Button/Button";
 import { PrimaryInput } from "../../UI/Form/Input/Input";
 import AuthContext from "../../../context/AuthProvider";
 import { publicAxios } from "../../../Lib/apiClient";
@@ -13,7 +13,6 @@ const Login = () => {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [success, setSuccess] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -23,14 +22,11 @@ const Login = () => {
         email: email,
         password: password,
       });
-      const accessToken = response?.data?.accessToken;
-      const userType = response?.data?.userType;
-      setAuth({ email, password, userType, accessToken });
+
+      setAuth({ ...response.data });
       setEmail('')
       setPassword('')
-      //alert("Inicio de sesion exitoso")
-      let path = `/`; 
-      navigate(path);
+      navigate('/');
     } catch (err) {
       console.error(err);
     }

@@ -31,7 +31,7 @@
     justify-content: flex-end;
 }
 
-.header_right button{
+.header_right button.login_button{
     cursor: pointer;
     background-color: #55ACEE;
     border: none;
