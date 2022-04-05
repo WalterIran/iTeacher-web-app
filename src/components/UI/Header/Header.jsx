@@ -1,7 +1,27 @@
 import './Header.css';
+import { useState } from 'react';
+import { useSearchParams, useNavigate } from 'react-router-dom';
 import { Icon } from '@iconify/react';
 
 const Header = ({showSearch = true}) => {
+    let [searchParams, setSearchParams] = useSearchParams();
+    const navigate = useNavigate();
+    const [ text, setText ] = useState('');
+
+    const onSubmit = (e) => {
+        if(e.key === 'Enter' && text !== ''){
+            navigate('/search',{
+                state:{
+                    search: text
+                }
+            });
+        }
+    }
+
+    const handleChange = (e) => {
+        setText(e.target.value);
+    }
+
   return (
     <>
         <div className="header_left">
@@ -9,7 +29,7 @@ const Header = ({showSearch = true}) => {
             {
                 showSearch &&
                 <div className="search_container">
-                    <input type="text" placeholder='Search...' />
+                    <input type="text" placeholder='Search...' onKeyDown={onSubmit} onChange={handleChange} value={text} />
                     <Icon color='#999' icon="akar-icons:search" />
                 </div>
             }

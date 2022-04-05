@@ -1,22 +1,26 @@
 import styles from './ProfileCourse.module.css';
 import { PrimaryButton } from '../Form/Button/Button';
 
-const ProfileCourse = () => {
+const ProfileCourse = ({
+    courseName,
+    courseStatus,
+    
+}) => {
   return (
     <div className={styles.course}>
         <div className={styles.spaceBetween}>
-            <h4 className={styles.courseTitle}>Web Development</h4>
-            <p className={styles.courseTitle}>5.0</p>
+            <h4 className={styles.courseTitle}>{courseName}</h4>
+            {/* <p className={styles.courseTitle}>5.0</p> */}
         </div>
         <div className={styles.spaceBetween}>
             <div className="">
                 <span className={styles.subtitle}>Status: </span>
-                <span className="">Active</span>
+                <span className="">{courseStatus}</span>
             </div>
-            <div className="">
+            {/* <div className="">
                 <span className={styles.subtitle}>Students: </span>
                 <span className="">50</span>
-            </div>
+            </div> */}
         </div>
         <div className={styles.widthFull}>
             <span className={styles.subtitle}>Course link: </span>

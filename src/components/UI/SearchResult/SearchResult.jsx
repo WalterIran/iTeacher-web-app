@@ -1,48 +1,42 @@
-import React, { useEffect } from 'react';
 import styles from './SearchResult.module.css';
+import { useNavigate } from 'react-router-dom';
 
 //Components
 import { BaseButton, PrimaryButton } from '../Form/Button/Button';
-import axios from '../../../api/axios';
 
+const SearchResult = ({
+    teacherId,
+    teacherName, 
+    teacherType,
+    teacherImgUrl,
+    courseId,
+    courseName,
+    courseRating = 0.0,
+    courseDescription,
+}) => {
+    const navigate = useNavigate();
 
-const SearchResult = () => {
-
-    useEffect(() => {
-      try {
-          const testFetchData = async () => {
-              const res = await axios.get('/courses/search',
-                {
-                    params: {
-                        value: 'Walter'
-                    }
-                }
-              );
-              console.log(res);
-          }
-          testFetchData();
-      } catch (error) {
-          
-      }
-    }, [])
+    const onProfileClick = (e) => {
+        navigate(`/profile/${teacherId}`);
+    }
 
   return (
     <div className={styles.container}>
         <div className={styles.teacherInfo}>
-            <img src="http://via.placeholder.com/110x110" alt="profile pic" className="" />
-            <h4 className="">Walter Amador</h4>
-            <p className="">Programming teacher</p>
-            <BaseButton>
+            <img src={teacherImgUrl || "http://via.placeholder.com/110x110"} alt="profile pic" className="" />
+            <h4 className="">{teacherName}</h4>
+            <p className="">{teacherType}</p>
+            <BaseButton onClick={onProfileClick}>
                 Teacher Profile
             </BaseButton>
         </div>
         <div className={styles.courseInfo}>
             <div className={styles.spaceBetween}>
-                <h3 className="">Web Development</h3>
-                <p className="">5.0</p>
+                <h3 className="">{courseName}</h3>
+                <p className="">{courseRating}</p>
             </div>
             <p className="">
-                Lorem ipsum dolor sit amet consectetur adipisicing elit. Soluta dolores, ullam facere, atque, debitis minus sequi fugiat aut accusamus distinctio voluptatum maiores nostrum. Corrupti voluptas, quas id asperiores reprehenderit eveniet.
+                {courseDescription}
             </p>
             <div className="">
                 <PrimaryButton className={styles.btnPrimary}>
