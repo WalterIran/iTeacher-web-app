@@ -6,7 +6,8 @@ import Login from "./components/Views/Login/Login";
 import TeacherPage from "./components/Views/Teacher/TeacherPage";
 import Profile from "./components/Views/Profile/ProfilePage";
 import Search from "./components/Views/Search/SearchPage";
-import Review from "./components/Views/Review/Review";
+import ReviewPage from "./components/Views/Review/ReviewPage";
+import CoursePage from './components/Views/Course/CoursePage'
 import StudentRegister from "./components/Views/Register/Students/Student.registrationPage";
 
 function App() {
@@ -17,11 +18,12 @@ function App() {
       <Route path="/teacher-registration" element={<TeacherPage />} />
       <Route path='/profile/:id' element={<Profile />} />
       <Route path="/search" element={<Search />} />
-      <Route path="/review" element={<Review />} />
+      <Route path='/reviews' element={<ReviewPage />} />
+      <Route path='/add-course' element={<CoursePage />} />
       <Route path="/register-options" element={<RegisterOption />} />
       <Route path="/student-registration" element={<StudentRegister />} />
     </Routes>
-  );
+    )
 }
 
 export default App;
