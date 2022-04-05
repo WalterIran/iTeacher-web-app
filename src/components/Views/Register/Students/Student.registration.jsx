@@ -42,12 +42,10 @@ const StudentRegister = () => {
     const formik = useFormik({
         initialValues: initial,
         validationSchema: validation,
-        onSubmit: values => {
+         onSubmit: async values => {
             console.log(values);
-            let path = `/login`;
-            navigate(path);
             try {
-                const data = axios.post(
+                const data = await axios.post(
                     '/auth/student-signup',
                     {
                         name: values.txtNombre,
@@ -61,6 +59,7 @@ const StudentRegister = () => {
                 navigate('/login');
             } catch (ex) {
                 console.log('Error on Signup submit', ex);
+                alert("Credenciales invalidas. Intente nuevas credenciales.");
             }
         },
     });
